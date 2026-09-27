@@ -20,6 +20,7 @@
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
 #define OLED_RESET_PIN -1
+#define TEST_SQUARE_SIZE 8
 
 // --- Modulo de ojos (RoboEyes) ---------------------------------------------
 #define EYES_MAX_FPS 60

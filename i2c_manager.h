@@ -17,6 +17,11 @@
 inline void initI2C() {
     Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
     Wire.setClock(I2C_FREQUENCY_HZ);
+
+    Serial.print("[I2C] bus listo SDA=");
+    Serial.print(I2C_SDA_PIN);
+    Serial.print(" SCL=");
+    Serial.println(I2C_SCL_PIN);
 }
 
 // TODO 1.2: Barre el rango completo de direcciones e informa cada dispositivo hallado y el conteo final.
@@ -48,13 +53,12 @@ inline void scanI2C() {
 // Pregunta Guía: ¿Qué debe imprimir el arranque cuando el panel no responde?
 // Pista: Hay dos caminos, uno de éxito y uno fatal; la guía §05 los muestra.
 inline void testI2CDevice() {
-    byte address = 0x3C; // Dirección del panel OLED SSD1306
-    Wire.beginTransmission(address);
+    Wire.beginTransmission(OLED_I2C_ADDRESS);
     byte error = Wire.endTransmission();
 
     if (error == 0) {
         Serial.print("[POST] OLED responde en 0x");
-        Serial.println(address, HEX);
+        Serial.println(OLED_I2C_ADDRESS, HEX);
     } else {
         Serial.println("[POST] ERROR: OLED no responde. Deteniendo arranque...");
         while (1); // Detiene el arranque si falla
