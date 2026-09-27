@@ -21,21 +21,15 @@ Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET_PIN);
 // Pista: La línea de éxito esperada está en la guía §05.
 inline void initDisplay() {
     if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDRESS)) {
-        Serial.println(F("[DISPLAY] no se pudo iniciar SSD1306"));
+        Serial.println(F("[OLED] ERROR: no se pudo inicializar la pantalla"));
         while (true) {
             delay(1000);
         }
     }
-
     display.clearDisplay();
     display.display();
-    Serial.print(F("[DISPLAY] panel listo "));
-    Serial.print(OLED_WIDTH);
-    Serial.print('x');
-    Serial.print(OLED_HEIGHT);
-    Serial.print(F(" a "));
-    Serial.print(I2C_FREQUENCY_HZ / 1000);
-    Serial.println(F(" kHz"));
+    Serial.printf("[OLED] panel listo %dx%d a %lu kHz\n", OLED_WIDTH, OLED_HEIGHT,
+                  I2C_FREQUENCY_HZ / 1000UL);
 }
 
 // Ejemplo de uso de la API del panel: imprime una linea de texto y la presenta.
