@@ -39,17 +39,24 @@ void setup() {
     // TODO 2.4: Escribe las llamadas de los pasos 5 y 6 para pintar el logo y ejecutar el POST de pantalla.
     // Paso 5 — Panel inicializado (verás el panel listo de 128x64 a 400 kHz).
     // Paso 6 — Logo pintado y POST de pantalla (verás el cuadrado de pantalla y sus coordenadas).
+    showLogo();
+    testDisplay();
 
     // TODO 3.4: Escribe la llamada del paso 7 para dejar los ojos listos.
     // Paso 7 — Ojos inicializados (verás los ojos listos a 60 fps).
 
     // TODO 4.3: Escribe la llamada del paso 8, publica la ayuda y arma la ventana de arranque.
     // Paso 8 — Ayuda publicada y ventana de arranque armada (verás la ayuda de depuración; bootTime = millis()).
+    bootTime = millis();
 }
 
 void loop() {
     // TODO 2.4 (continuación): Mientras la ventana de arranque no expire, mantén el logo
     // en pantalla; al expirar, cambia de estado y repórtalo por el monitor.
+    if (!bootComplete && millis() - bootTime >= LOGO_TIME_MS) {
+        bootComplete = true;
+        Serial.println(F("[FSM] BOOT -> RUN"));
+    }
 
     // TODO 4.3 (continuación): Con el arranque terminado, atiende la consola en cada
     // vuelta y deja que la animación avance un paso sin bloquear el bucle.
