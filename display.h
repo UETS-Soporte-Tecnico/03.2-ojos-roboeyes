@@ -16,11 +16,15 @@
 // Instancia global: el sistema tiene una sola pantalla
 Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET_PIN);
 
-// TODO 1.4: Inicializa el panel con el modo de alimentación interna y la dirección de config.h; si falla, informa y no continúes.
-// Pregunta Guía: ¿Qué dos argumentos necesita el panel para inicializarse y qué haces si falla?
-// Pista: La línea de éxito esperada está en la guía §05.
+// 41.4: Inicializa el panel con el modo de alimentación interna y la dirección de config.h; si falla, informa y no continúes.
 inline void initDisplay() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDRESS)) {
+        Serial.println(F("[FALLO CRITICO] No se pudo inicializar el panel OLED."));
+        while (true) delay(100);
+    }
+
+Serial.println(F("[DISPLAY] SSD1306 inicializado 128x64 a 400 kHz"));
+
 }
 
 // Ejemplo de uso de la API del panel: imprime una linea de texto y la presenta.
