@@ -24,9 +24,10 @@ RoboEyes<Adafruit_SSD1306> roboEyes(display);
 // Pregunta Guía: ¿Qué tres números necesita la inicialización y de dónde sale cada uno?
 inline void initEyes() {
     roboEyes.begin(OLED_WIDTH, OLED_HEIGHT, EYES_MAX_FPS);
+    roboEyes.setDisplayColors(SSD1306_BLACK, SSD1306_WHITE);
     roboEyes.setMood(DEFAULT);
     roboEyes.setCuriosity(false);
-    Serial.println(F("[EYES] ojos listos a 60 fps"));
+    Serial.printf("[EYES] ojos listos a %d fps\n", EYES_MAX_FPS);
 }
 
 // TODO 3.2: Avanza la animación un paso sin bloquear; nunca envuelvas este paso en borrado/presentación ni en esperas.
@@ -40,29 +41,44 @@ inline void updateEyes() {
 inline void setEyesMood(char key) {
     roboEyes.setMood(DEFAULT);
     roboEyes.setCuriosity(false);
+    roboEyes.setHeight(36, 36);
+    const __FlashStringHelper* nombre = F("normal");
 
     switch (key) {
+        case '1':
+            break;
         case '2':
             roboEyes.setMood(HAPPY);
+            nombre = F("feliz");
             break;
         case '3':
             roboEyes.setMood(ANGRY);
+            nombre = F("enojado");
             break;
         case '4':
             roboEyes.setMood(TIRED);
+            nombre = F("cansado");
             break;
         case '5':
             roboEyes.setMood(TIRED);
+            roboEyes.setHeight(24, 24);
+            nombre = F("dormido");
             break;
         case '6':
             roboEyes.setMood(ANGRY);
+            roboEyes.setHeight(42, 42);
+            nombre = F("asustado");
             break;
         case '7':
             roboEyes.setCuriosity(true);
+            nombre = F("curioso");
             break;
         default:
-            break;
+            return;
     }
+
+    Serial.printf("[OJOS] expresion seleccionada: %c - ", key);
+    Serial.println(nombre);
 }
 
 #endif
