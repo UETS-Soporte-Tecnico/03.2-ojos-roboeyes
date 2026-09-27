@@ -14,15 +14,10 @@
 // TODO 4.1: Publica el bloque de ayuda con las 7 expresiones y la tecla de ayuda.
 // Pregunta Guía: ¿Qué debe ver un compañero que abre el monitor por primera vez?
 inline void printHelp() {
-    Serial.println(F("[HELP] expresiones disponibles:"));
-    Serial.println(F("1 DEFAULT"));
-    Serial.println(F("2 HAPPY"));
-    Serial.println(F("3 ANGRY"));
-    Serial.println(F("4 TIRED"));
-    Serial.println(F("5 SLEEPY"));
-    Serial.println(F("6 SCARY"));
-    Serial.println(F("7 CURIOUS"));
-    Serial.println(F("h ayuda"));
+    Serial.println(F("\n[EYES] comandos:"));
+    Serial.println(F("1 NORMAL  | 2 FELIZ   | 3 ENOJADO | 4 CANSADO"));
+    Serial.println(F("5 DORMIDO | 6 ASUSTADO| 7 CURIOSO"));
+    Serial.println(F("h/H ayuda"));
 }
 
 // TODO 4.2: Atiende el puerto sin bloquear: una tecla, respuesta inmediata; teclas 1 a 7 cambian la expresión, h repite la ayuda, los caracteres de control se ignoran en silencio.
@@ -33,22 +28,11 @@ inline void debugSerialTick() {
     }
 
     const char key = static_cast<char>(Serial.read());
-    if (key < 32 || key == 127) {
-        return;
-    }
-
     if (key == 'h' || key == 'H') {
         printHelp();
-        return;
+    } else if (key >= '1' && key <= '7') {
+        setEyesMood(key);
     }
-
-    if (key < '1' || key > '7') {
-        return;
-    }
-
-    setEyesMood(key);
-    Serial.print(F("[MOOD] tecla "));
-    Serial.println(key);
 }
 
 #endif
