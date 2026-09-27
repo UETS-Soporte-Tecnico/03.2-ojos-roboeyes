@@ -48,6 +48,7 @@ void setup() {
 
     // TODO 4.3: Escribe la llamada del paso 8, publica la ayuda y arma la ventana de arranque.
     // Paso 8 — Ayuda publicada y ventana de arranque armada (verás la ayuda de depuración; bootTime = millis()).
+    printHelp();
     bootTime = millis();
 }
 
@@ -60,6 +61,7 @@ void loop() {
     }
 
     if (bootComplete) {
+        debugSerialTick();
         updateEyes();
     }
 
