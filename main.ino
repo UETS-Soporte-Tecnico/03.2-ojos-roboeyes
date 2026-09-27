@@ -4,12 +4,6 @@
 // No sabe como hacer nada: solo llama a cada modulo en el orden correcto.
 // ============================================
 
-// main.ino
-// ============================================
-// RESPONSABILIDAD: Orquestar arranque y bucle principal del sistema.
-// No sabe como hacer nada: solo llama a cada modulo en el orden correcto.
-// ============================================
-
 #include "config.h"
 #include "i2c_manager.h"
 #include "display.h"
@@ -41,6 +35,7 @@ void setup() {
     // Paso 6 — Logo pintado y POST de pantalla (verás el cuadrado de pantalla y sus coordenadas).
     showLogo();
     testDisplay();
+    showLogo();
 
     // TODO 3.4: Escribe la llamada del paso 7 para dejar los ojos listos.
     // Paso 7 — Ojos inicializados (verás los ojos listos a 60 fps).
@@ -50,21 +45,23 @@ void setup() {
     // Paso 8 — Ayuda publicada y ventana de arranque armada (verás la ayuda de depuración; bootTime = millis()).
     printHelp();
     bootTime = millis();
+    bootComplete = false;
+    Serial.println(F("[BOOT] ventana de arranque armada"));
 }
 
 void loop() {
     // TODO 2.4 (continuación): Mientras la ventana de arranque no expire, mantén el logo
     // en pantalla; al expirar, cambia de estado y repórtalo por el monitor.
-    if (!bootComplete && millis() - bootTime >= LOGO_TIME_MS) {
-        bootComplete = true;
-        Serial.println(F("[FSM] BOOT -> RUN"));
-    }
-
-    if (bootComplete) {
-        debugSerialTick();
-        updateEyes();
+    if (!bootComplete) {
+        if (millis() - bootTime >= LOGO_TIME_MS) {
+            bootComplete = true;
+            Serial.println(F("[BOOT] arranque completado"));
+        }
+        return;
     }
 
     // TODO 4.3 (continuación): Con el arranque terminado, atiende la consola en cada
     // vuelta y deja que la animación avance un paso sin bloquear el bucle.
+    debugSerialTick();
+    updateEyes();
 }
