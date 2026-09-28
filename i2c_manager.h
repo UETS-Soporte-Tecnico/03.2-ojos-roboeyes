@@ -8,7 +8,7 @@
 inline void initI2C() {
     Wire.begin(I2C_SCL_PIN, I2C_SDA_PIN);
     Wire.setClock(I2C_FREQUENCY_HZ);
-    Serial.println("[I2C] Bus configurado en SDA:GPIO21, SCL:GPIO22 a 400kHz.");
+    Serial.println("[I2C] bus listo SDA=21 SCL=22");
 }
 
 inline void scanI2C() {
