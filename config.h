@@ -11,8 +11,8 @@
 // ============================================================================
 
 // --- Bus I2C (compartido por todos los perifericos del sistema) -------------
-#define I2C_SDA_PIN 21
-#define I2C_SCL_PIN 22
+#define I2C_SDA_PIN 11
+#define I2C_SCL_PIN 10
 #define I2C_FREQUENCY_HZ 400000
 
 // --- Pantalla OLED SSD1306 (unica pantalla del sistema) ---------------------
