@@ -21,6 +21,12 @@ Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET_PIN);
 // Pista: La línea de éxito esperada está en la guía §05.
 inline void initDisplay() {
     /* ESCRIBE TU CÓDIGO AQUÍ */
+    if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDR)) { 
+        Serial.println(F("[DISPLAY] Error al inicializar SSD1306"));
+        while (1);
+    }
+
+    Serial.println("[DISPLAY] SSD1306 inicializado 128x64 a 400 kHz");
 }
 
 // Ejemplo de uso de la API del panel: imprime una linea de texto y la presenta.
