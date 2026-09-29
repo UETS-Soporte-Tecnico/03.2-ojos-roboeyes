@@ -37,7 +37,7 @@ void setup() {
 void loop() {
     
     if (!bootComplete) {
-        if (millis() - bootTime >= BOOT_WINDOW_MS) {
+        if (millis() - bootTime >= LOGO_TIME_MS) {
             bootComplete = true;
             Serial.println(F("[FSM] Transición: Arranque completado. Pasando a modo de operacion de ojos."));
         }
