@@ -6,7 +6,7 @@
 #include "config.h"
 
 inline void initI2C() {
-    Wire.begin(I2C_SCL_PIN, I2C_SDA_PIN);
+    Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
     Wire.setClock(I2C_FREQUENCY_HZ);
     Serial.println("[I2C] bus listo SDA=21 SCL=22");
 }
@@ -21,12 +21,12 @@ inline void scanI2C() {
         byte error = Wire.endTransmission();
 
         if (error == 0) {
-            Serial.println("[I2C] dispositivo en 0x%02X\n", address);
+            Serial.printf("[I2C] Dispositivo detectado en: 0x%02X ", address);
             devicesFound++;
         }
     }
 
-    Serial.println("[I2C] dispositivos encontrados: %d\n", devicesFound);
+    Serial.printf("[I2C] dispositivos encontrados: %d\n", devicesFound);
 
 }
 
@@ -35,9 +35,9 @@ inline void testI2CDevice() {
     byte error = Wire.endTransmission();
 
         if (error == 0) {
-            Serial.println("[POST] OLED responde en 0x3C");
+            Serial.printf("[POST] OLED responde en 0x3C");
         } else {
-            Serial.println("[POST] OLED no responde en 0x3C");
+            Serial.printf("[POST] OLED no responde en 0x3C");
         }
 }
 
