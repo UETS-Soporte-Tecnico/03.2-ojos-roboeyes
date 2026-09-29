@@ -23,19 +23,73 @@ RoboEyes<Adafruit_SSD1306> roboEyes(display);
 // TODO 3.1: Inicializa los ojos con las dimensiones del panel y el objetivo de cuadros por segundo de config.h.
 // Pregunta Guía: ¿Qué tres números necesita la inicialización y de dónde sale cada uno?
 inline void initEyes() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    roboEyes.begin(OLED_WIDTH, OLED_HEIGHT, EYES_MAX_FPS);
+    
+    Serial.print("[EYES] RoboEyes listo a ");
+    Serial.print(EYES_MAX_FPS);
+    Serial.println(" fps");
 }
 
 // TODO 3.2: Avanza la animación un paso sin bloquear; nunca envuelvas este paso en borrado/presentación ni en esperas.
 // Pregunta Guía: ¿Quién es dueño del borrado y la presentación del cuadro, tu código o la librería?
 inline void updateEyes() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    roboEyes.update();
 }
 
 // TODO 3.3: Aplica la expresión pedida por tecla (1 a 7) y restablece la base limpia antes de calibrar.
 // Pregunta Guía: ¿Qué cambia en pantalla entre una tecla y otra si la base no se restablece?
 inline void setEyesMood(char key) {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    if (key < '1' || key > '7') {
+        return;
+    }
+
+    roboEyes.setCuriosity(false);
+    roboEyes.setHFlicker(false, 0);
+    roboEyes.setVFlicker(false, 0);
+    roboEyes.setAutoblinker(true, 3, 2); 
+    roboEyes.setIdleMode(false);
+
+    // --- APLICACIÓN DE LA EXPRESIÓN SEGÚN MAPA DEL TALLER ---
+    switch (key) {
+        case '1': // Neutra: Ánimo por defecto + movimiento inactivo
+            roboEyes.setMood(DEFAULT);
+            roboEyes.setIdleMode(true, 2, 2);
+            break;
+
+        case '2': // Feliz: Ánimo alegre + movimiento inactivo
+            roboEyes.setMood(HAPPY);
+            roboEyes.setIdleMode(true, 2, 2);
+            break;
+
+        case '3': // Enojada: Ánimo enojado, sin movimiento
+            roboEyes.setMood(ANGRY);
+            break;
+
+        case '4': // Cansada: Ánimo cansado, sin movimiento
+            roboEyes.setMood(TIRED);
+            break;
+
+        case '5': // Soñolienta: Cansado + parpadeo lento
+            roboEyes.setMood(TIRED);
+            roboEyes.setAutoblinker(true, 6, 3); // Parpadeo más lento
+            break;
+
+        case '6': // Temible: Enojado + parpadeo apagado + temblor vertical
+            roboEyes.setMood(ANGRY);
+            roboEyes.setAutoblinker(false, 0, 0);
+            roboEyes.setVFlicker(true, 2);
+            break;
+
+        case '7': // Curiosa: Neutro + curiosidad + movimiento inactivo rápido
+            roboEyes.setMood(DEFAULT);
+            roboEyes.setCuriosity(true);
+            roboEyes.setIdleMode(true, 1, 1); // Movimiento inactivo más rápido/frecuente
+            break;
+    }
+
+    // Salida por Monitor Serie 
+    Serial.print("[EYES] expresion aplicada: ");
+    Serial.println(key);
 }
 
 #endif
