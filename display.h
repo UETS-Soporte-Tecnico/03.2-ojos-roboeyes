@@ -14,7 +14,7 @@ inline void initDisplay() {
         Serial.println("[OLED] ERROR: Pantalla no detectada.");
         while (true);
     }
-    Serial.println(
+    Serial.printf(
         "[DISPLAY] SSD1306 inicializado %dx%d a %d kHz\n",
         OLED_WIDTH,
         OLED_HEIGHT,
