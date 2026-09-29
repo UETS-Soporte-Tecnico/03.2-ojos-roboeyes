@@ -23,7 +23,7 @@ RoboEyes<Adafruit_SSD1306> roboEyes(display);
 // TODO 3.1: Inicializa los ojos con las dimensiones del panel y el objetivo de cuadros por segundo de config.h.
 // Pregunta Guía: ¿Qué tres números necesita la inicialización y de dónde sale cada uno?
 inline void initEyes() {
-    roboEyes.begin(OLED_WIDTH, OLED_HEIGHT, EYES_TARGET_FPS);
+    roboEyes.begin(OLED_WIDTH, OLED_HEIGHT, EYES_MAX_FPS);
     roboEyes.setAutoblinker(ON, 3, 2);
     roboEyes.setIdleMode(ON, 2, 2);
     Serial.println(F("[EYES] Ojos inicializados correctamente y listos a 60 FPS."));
@@ -38,7 +38,7 @@ inline void updateEyes() {
 // TODO 3.3: Aplica la expresión pedida por tecla (1 a 7) y restablece la base limpia antes de calibrar.
 // Pregunta Guía: ¿Qué cambia en pantalla entre una tecla y otra si la base no se restablece?
 inline void setEyesMood(char key) {
-    roboEyes.reset();
+    roboEyes;
 
     switch (key) {
         case '1': // Neutra: Ánimo por defecto + movimiento inactivo
