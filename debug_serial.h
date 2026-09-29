@@ -14,7 +14,6 @@
 // TODO 4.1: Publica el bloque de ayuda con las 7 expresiones y la tecla de ayuda.
 // Pregunta Guía: ¿Qué debe ver un compañero que abre el monitor por primera vez?
 inline void printHelp() {
-    inline void printHelp() {
     Serial.println(F("\n=============================================="));
     Serial.println(F("     CONSOLA DE CONTROL - ROBOEYES SSD1306    "));
     Serial.println(F("=============================================="));
@@ -30,12 +29,11 @@ inline void printHelp() {
     Serial.println(F("   [h] Mostrar este menú de ayuda"));
     Serial.println(F("==============================================\n"));
 }
-}
+
 
 // TODO 4.2: Atiende el puerto sin bloquear: una tecla, respuesta inmediata; teclas 1 a 7 cambian la expresión, h repite la ayuda, los caracteres de control se ignoran en silencio.
 // Pregunta Guía: ¿Qué pasa con una tecla desconocida y qué pasa con un carácter de control?
 inline void debugSerialTick() {
-    inline void debugSerialTick() {
     if (Serial.available() > 0) {
         char key = Serial.read();
 
@@ -60,5 +58,6 @@ inline void debugSerialTick() {
         }
     }
 }
+
 
 #endif
