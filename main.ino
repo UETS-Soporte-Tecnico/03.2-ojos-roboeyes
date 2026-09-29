@@ -39,9 +39,13 @@ void setup() {
 
     // TODO 3.4: Escribe la llamada del paso 7 para dejar los ojos listos.
     // Paso 7 — Ojos inicializados (verás los ojos listos a 60 fps).
+    initEyes();
 
     // TODO 4.3: Escribe la llamada del paso 8, publica la ayuda y arma la ventana de arranque.
     // Paso 8 — Ayuda publicada y ventana de arranque armada (verás la ayuda de depuración; bootTime = millis()).
+    printHelp(); // Muestra el menú de comandos en el Monitor Serie
+    bootTime = millis();
+
 }
 
 void loop() {
@@ -61,4 +65,7 @@ void loop() {
 
     // TODO 4.3 (continuación): Con el arranque terminado, atiende la consola en cada
     // vuelta y deja que la animación avance un paso sin bloquear el bucle.
+    debugSerialTick(); // Escucha el Monitor Serie sin bloquear
+    updateEyes();
+    
 }
