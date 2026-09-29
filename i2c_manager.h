@@ -17,7 +17,10 @@
 inline void initI2C() {
     Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
     Wire.setClock(I2C_FREQUENCY_HZ);
+<<<<<<< HEAD
 
+=======
+>>>>>>> fbd0979 (chore(raiz):Trabajo terminado)
     Serial.print(F("[I2C] bus listo SDA="));
     Serial.print(I2C_SDA_PIN);
     Serial.print(F(" SCL="));
@@ -28,6 +31,7 @@ inline void initI2C() {
 // Pregunta Guía: ¿Cómo sabes que el barrido cubrió todo el rango si el monitor solo muestra un conteo?
 // Pista: La guía §05 muestra el barrido esperado línea por línea.
 inline void scanI2C() {
+<<<<<<< HEAD
     Serial.println(F("[I2C] escaneando direcciones 1-126"));
 
     uint8_t found = 0;
@@ -40,11 +44,29 @@ inline void scanI2C() {
             if (address < 0x10) Serial.print('0');
             Serial.println(address, HEX);
             found++;
+=======
+    uint8_t devicesFound = 0;
+
+    Serial.println(F("[I2C] iniciando barrido"));
+    for (uint8_t address = 1; address < 127; ++address) {
+        Wire.beginTransmission(address);
+        if (Wire.endTransmission() == 0) {
+            Serial.print(F("[I2C] dispositivo encontrado en 0x"));
+            if (address < 16) {
+                Serial.print('0');
+            }
+            Serial.println(address, HEX);
+            ++devicesFound;
+>>>>>>> fbd0979 (chore(raiz):Trabajo terminado)
         }
     }
 
     Serial.print(F("[I2C] dispositivos encontrados: "));
+<<<<<<< HEAD
     Serial.println(found);
+=======
+    Serial.println(devicesFound);
+>>>>>>> fbd0979 (chore(raiz):Trabajo terminado)
 }
 
 // TODO 1.3: Sondea la dirección del panel e informa si responde o si el arranque debe detenerse.
@@ -52,6 +74,7 @@ inline void scanI2C() {
 // Pista: Hay dos caminos, uno de éxito y uno fatal; la guía §05 los muestra.
 inline void testI2CDevice() {
     Wire.beginTransmission(OLED_I2C_ADDRESS);
+<<<<<<< HEAD
     uint8_t error = Wire.endTransmission();
 
     if (error == 0) {
@@ -66,6 +89,16 @@ inline void testI2CDevice() {
         while (true) {
             delay(100);
         }
+=======
+    if (Wire.endTransmission() == 0) {
+        Serial.print(F("[POST] OLED responde en 0x"));
+        Serial.println(OLED_I2C_ADDRESS, HEX);
+        return;
+    }
+
+    Serial.println(F("[ERROR] OLED no responde; se detiene el arranque"));
+    while (true) {
+>>>>>>> fbd0979 (chore(raiz):Trabajo terminado)
     }
 }
 

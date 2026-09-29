@@ -24,6 +24,7 @@ void setup() {
     scanI2C();
     testI2CDevice();
     initDisplay();
+<<<<<<< HEAD
 
     // TODO 2.4: Escribe las llamadas de los pasos 5 y 6 para pintar el logo y ejecutar el POST de pantalla.
     // Paso 5 — Panel inicializado (verás el panel listo de 128x64 a 400 kHz).
@@ -34,12 +35,26 @@ void setup() {
 
     // TODO 4.3: Escribe la llamada del paso 8, publica la ayuda y arma la ventana de arranque.
     // Paso 8 — Ayuda publicada y ventana de arranque armada (verás la ayuda de depuración; bootTime = millis()).
+=======
+    showLogo();
+    testDisplay();
+    initEyes();
+    printHelp();
+    bootTime = millis();
+>>>>>>> fbd0979 (chore(raiz):Trabajo terminado)
 }
 
 void loop() {
-    // TODO 2.4 (continuación): Mientras la ventana de arranque no expire, mantén el logo
-    // en pantalla; al expirar, cambia de estado y repórtalo por el monitor.
+    if (!bootComplete) {
+        if (millis() - bootTime >= LOGO_TIME_MS) {
+            bootComplete = true;
+            Serial.println(F("[FSM] BOOT -> RUN"));
+        } else {
+            showLogo();
+        }
+        return;
+    }
 
-    // TODO 4.3 (continuación): Con el arranque terminado, atiende la consola en cada
-    // vuelta y deja que la animación avance un paso sin bloquear el bucle.
+    debugSerialTick();
+    updateEyes();
 }
