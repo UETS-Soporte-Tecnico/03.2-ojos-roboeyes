@@ -9,7 +9,7 @@
 
 #include <Arduino.h>
 #include "config.h"
-#include "eyes.h"
+
 
 // TODO 4.1: Publica el bloque de ayuda con las 7 expresiones y la tecla de ayuda.
 inline void printHelp() {

@@ -1,10 +1,9 @@
 #include "config.h"
 #include "i2c_manager.h"
 #include "display.h"
-#include "logo.h"
 #include "logboot.h"
-#include "eyes.h"
-#include "debug_serial.h"
+#include "eyes.h"         
+#include "debug_serial.h" 
 
 // Instancia global única para el hardware
 Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET_PIN);
@@ -14,7 +13,10 @@ bool bootComplete = false;
 unsigned long bootTime = 0;
 
 void setup() {
+
     Serial.begin(115200);
+    delay(500);
+
     Serial.println(F("[BOOT] sistema de ojos OLED"));
 
     initI2C();

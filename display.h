@@ -32,6 +32,18 @@ inline void initDisplay() {
     display.display();
     
     Serial.println(F("Panel OLED SSD1306 inicializado correctamente."));
+ 
+    if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDRESS)) {
+
+        Serial.println(F("[DISPLAY ERROR] Fallo al inicializar la pantalla SSD1306"));
+        
+
+        while (true) {
+            delay(1000); 
+        }
+    }
+    
+    Serial.println(F("[DISPLAY] SSD1306 inicializado 128x64 a 400 kHz"));
 }
 
 inline void showText(const __FlashStringHelper* texto, int x, int y, uint8_t tamano) {

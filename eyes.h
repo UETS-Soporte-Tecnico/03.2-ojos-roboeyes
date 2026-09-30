@@ -4,7 +4,7 @@
 // No sabe nada de: bus I2C, logos de arranque, POST ni Monitor Serie.
 // ============================================
 
-#ifndef EYES_H
+#ifndef EYES_HL
 #define EYES_H
 
 #include <Arduino.h>
