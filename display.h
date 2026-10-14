@@ -13,17 +13,22 @@
 #include <Adafruit_SSD1306.h>
 #include "config.h"
 
-// Instancia global: el sistema tiene una sola pantalla
 Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET_PIN);
 
 // TODO 1.4: Inicializa el panel con el modo de alimentación interna y la dirección de config.h; si falla, informa y no continúes.
 // Pregunta Guía: ¿Qué dos argumentos necesita el panel para inicializarse y qué haces si falla?
 // Pista: La línea de éxito esperada está en la guía §05.
 inline void initDisplay() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+
+    if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDR)) {
+        Serial.print("[DISPLAY] Error al inicializar SSD1306");
+        while(1);
+    } else {
+        Serial.print("[DISPLAY] SSD1306 inicializado 128x64 a 400 kHz");
+    }
 }
 
-// Ejemplo de uso de la API del panel: imprime una linea de texto y la presenta.
+
 inline void showText(const __FlashStringHelper* texto, int x, int y, uint8_t tamano) {
     display.setTextSize(tamano);
     display.setTextColor(SSD1306_WHITE);
