@@ -19,11 +19,22 @@ Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET_PIN);
 // TODO 1.4: Inicializa el panel con el modo de alimentación interna y la dirección de config.h; si falla, informa y no continúes.
 // Pregunta Guía: ¿Qué dos argumentos necesita el panel para inicializarse y qué haces si falla?
 // Pista: La línea de éxito esperada está en la guía §05.
+
 inline void initDisplay() {
-    /* ESCRIBE TU CÓDIGO AQUÍ */
+    if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_I2C_ADDRESS)) {
+        Serial.println(F("[POST] ERROR: No se pudo inicializar el OLED"));
+        while (true) {
+            delay(100);
+        }
+    }
+
+Serial.println(F("[POST] OLED listo: 128x64 a 400 kHz"));
+
+    display.clearDisplay();
+    display.display();
 }
 
-// Ejemplo de uso de la API del panel: imprime una linea de texto y la presenta.
+// Mostrar texto en la pantalla
 inline void showText(const __FlashStringHelper* texto, int x, int y, uint8_t tamano) {
     display.setTextSize(tamano);
     display.setTextColor(SSD1306_WHITE);
